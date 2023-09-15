@@ -1,0 +1,31 @@
+---
+
+- hosts: webserver
+  become: true
+  tasks:
+
+  - name: install apache and php
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+      state: latest
+
+- hosts: database_server
+  become: true
+  tasks:
+
+  - name: install updates
+    dnf:
+      update_only: yes
+      update_cache: yes
+
+- hosts: database_server
+  become: true
+  tasks:
+
+  - name: install mariadb server package
+    dnf:
+     name: mariadb
+     state: latest
+
